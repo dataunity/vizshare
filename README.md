@@ -3,6 +3,8 @@ VizShareJS
 
 An easy way to share your visualisation code.
 
+**Note: draft version, subject to change**
+
 Overview
 --------
 
