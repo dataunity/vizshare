@@ -8,6 +8,8 @@ Overview
 
 VizShare lets you put your visualisation code in a simple wrapper to make it reusable in different projects. It also makes it easier to share visualisation code with others.
 
+Find out more by looking at the <a href="https://github.com/dataunity/vizshare/wiki/Overview">wiki</a>
+
 Examples
 --------
 
