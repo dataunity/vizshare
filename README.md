@@ -1,4 +1,4 @@
-vizshare
-========
+VizShareJS
+==========
 
-An easy way to share your visualisation code
+An easy way to share your visualisation code.
