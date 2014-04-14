@@ -1,0 +1,10 @@
+body {
+    font: 12px sans-serif;
+}
+
+.code {
+    font: 12px monospace;
+    background-color: #dddddd;
+    padding: 5px;
+    color: #222222;
+}

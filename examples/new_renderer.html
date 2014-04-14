@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>VizShare - Examples</title>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+        <style>
+
+            .axis path,
+            .axis line {
+              fill: none;
+              stroke: #000;
+              shape-rendering: crispEdges;
+            }
+
+            .x.axis path {
+              display: none;
+            }
+
+            .line {
+              fill: none;
+              stroke: steelblue;
+              stroke-width: 1.5px;
+            }
+
+            .bar {
+              fill: steelblue;
+            }
+
+            .settings-text {
+                width: "600px";
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Bar chart</h1>
+        <p>
+            This example shows how to create a new renderer and register it with VizShare.
+        </p>
+        <p>
+            Please see the javascript file for this page for details ('js/new-renderer.js').
+        </p>
+        <h2>Example</h2>
+        <div>
+          Click the buttons below to change which data settings are used in
+          the new renderer.
+        </div>
+        <div>
+            <button id="btnSettings1">Bar chart settings 1</button>
+            <button id="btnSettings2">Bar chart settings 2</button>
+        </div>
+        <div>
+            <textarea id="settings" class="settings-text" rows="17" cols="70"></textarea>
+        </div>
+        <div id="output"></div>
+
+        <p>
+            <a href="index.html">Back to home</a>
+        </p>
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.7.1.js"></script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../vizshare-0.1.0.js"></script>
+        <script src="js/vizshare-page.js"></script>
+    </body>
+</html>

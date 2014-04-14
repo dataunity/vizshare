@@ -1,58 +1,19 @@
 <html>
     <head>
         <title>VizShare - Examples</title>
-        <style>
-
-            body {
-              font: 10px sans-serif;
-            }
-
-            .axis path,
-            .axis line {
-              fill: none;
-              stroke: #000;
-              shape-rendering: crispEdges;
-            }
-
-            .x.axis path {
-              display: none;
-            }
-
-            .line {
-              fill: none;
-              stroke: steelblue;
-              stroke-width: 1.5px;
-            }
-
-            .bar {
-              fill: steelblue;
-            }
-
-            .settings-text {
-                width: "600px";
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
     </head>
     <body>
-        <h1>Bar chart</h1>
-        <div>
-          Click the buttons below to change which data settings are used in
-          the renderer.
-        </div>
-        <div>
-            <button id="btnSettings1">Bar chart settings 1</button>
-            <button id="btnSettings2">Bar chart settings 2</button>
-        </div>
-        <div>
-            <textarea id="settings" class="settings-text" rows="17" cols="70"></textarea>
-        </div>
-        <div id="output"></div>
-
-        <!-- Scripts -->
-        <script src="js/jquery-1.7.1.js"></script>
-        <script src="js/d3.min.js"></script>
-        <script src="../vizshare-0.1.0.js"></script>
-        <script src="js/vizshare-page.js"></script>
+        <h1>VizShare examples</h1>
+        <p>
+            <ul>
+                <li>
+                    How to use the <a href="default_renderers.html">default renderers</a>
+                </li>
+                <li>
+                    How to create a <a href="new_renderer.html">new renderer</a>
+                </li>
+            </ul>
+        </p>
     </body>
 </html>

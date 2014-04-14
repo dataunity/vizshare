@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>VizShare - Examples</title>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+    </head>
+    <body>
+        <h1>Default renderers</h1>
+        <p>
+            This example uses the default Bar chart renderer supplied with VizShare.
+        </p>
+        <p>
+            You can use the default renderers by just supplying your own data definition
+            JSON structure to the VizShare render method. Please see the javascript file
+            for this page for details ('js/default-renderers.js').
+        </p>
+        <p>
+            Available renderers are:
+            <ul>
+                <li>Bar chart ('vizshare.barchart')</li>
+            </ul>
+        </p>
+        <h2>Example Bar Chart</h2>
+        <p>
+            Click the buttons below to change which data settings are used in
+            the renderer. The code to draw the bar chart is:
+        </p>
+        <div class="code">
+            vizshare.render("vizshare.barchart", "#div-id", json-settings, {});
+        </div>
+        <p>
+            Where "vizshare.barchart" is the name of the renderer, "#div-id" is the
+            css style selector for where you want the output and json-settings is
+            the JSON structure shown below which describes the data.
+        </p>
+        <p>
+            <button id="btnSettings1">Bar chart settings 1</button>
+            <button id="btnSettings2">Bar chart settings 2</button>
+        </p>
+        <p>
+            <textarea id="settings" class="settings-text" rows="17" cols="70"></textarea>
+        </p>
+        <div id="output"></div>
+        <h2>Example Pie Chart</h2>
+        <p>
+            This example uses slightly different settings for the pie chart renderer.
+            The code for drawing a pie chart is:
+            <div class="code">
+                vizshare.render("vizshare.piechart", "#div-id", json-settings, {});
+            </div>
+        </p>
+        <p>
+            <textarea id="settings-pie" class="settings-text" rows="17" cols="70"></textarea>
+        </p>
+        <div id="output-pie"></div>
+
+        <p>
+            <a href="index.html">Back to home</a>
+        </p>
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.7.1.js"></script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/vega.min.js"></script>
+        <script src="../vizshare-0.1.0.js"></script>
+        <script src="../lib/vizshare-renderers-0.1.0.js"></script>
+        <script src="js/default-renderers.js"></script>
+    </body>
+</html>
