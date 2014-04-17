@@ -116,8 +116,8 @@ $(document).ready(function () {
 
     };
     // Register the render function
-    var renderOpts = {'renderFunc': renderFuncBar};
-    vizshare.registerRenderer("dataunity.barchart", renderOpts);
+    var rendererOpts = {'renderFunc': renderFuncBar};
+    vizshare.registerRenderer("myCompany.barchart", rendererOpts);
 
     // Button handlers
     $("#btnSettings1").click(function () {
@@ -130,10 +130,19 @@ $(document).ready(function () {
 
     function displayBarChart (settings) {
         // Draw the visualisation based on the settings
-        vizshare.render("dataunity.barchart", "#output", settings, {});
+        var renderOpts = {
+            rendererName: "myCompany.barchart",
+            selector: "#output",
+            data: settings,
+            vizOptions: {}
+        };
+        vizshare.render(renderOpts);
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);
         $("#settings").text(settingsStr);
     }
+
+    // Render default
+    displayBarChart(settings1);
 });

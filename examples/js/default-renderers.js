@@ -65,7 +65,13 @@ $(document).ready(function () {
 
     function displayBarChart (settings) {
         // Draw the visualisation based on the settings
-        vizshare.render("vizshare.barchart", "#output", settings, {});
+        var renderOpt = {
+            rendererName: "vizshare.barchart",
+            selector: "#output",
+            data: settings,
+            vizOptions: {}
+        };
+        vizshare.render(renderOpt);
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);
@@ -74,7 +80,13 @@ $(document).ready(function () {
 
     function displayPieChart (settings) {
         // Draw the visualisation based on the settings
-        vizshare.render("vizshare.piechart", "#output-pie", settings, {});
+        var renderOpt = {
+            rendererName: "vizshare.piechart",
+            selector: "#output-pie",
+            data: settings,
+            vizOptions: {}
+        };
+        vizshare.render(renderOpt);
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);

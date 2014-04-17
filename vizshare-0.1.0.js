@@ -4,35 +4,63 @@ vizshare = (function () {
     var rendererLookup = {},
 
     // Private methods
-        render = function (vizType, selector, dataSettings, vizSettings) {
-            var renderOpt = null,
+        render = function (options) {
+            var rendererName = null, 
+                selector = null, 
+                data = null, 
+                vizOptions = {},
+                renderOpt = null,
                 renderFunc = null,
-                dataHelper = new vizshare.dataHelper(dataSettings);
-            
-            if (!rendererLookup.hasOwnProperty(vizType)) {
-                throw "No renderer has been registered with the name '" + vizType + "'";
+                dataHelper = null;
+
+            // Check required properties have been supplied
+            if (typeof options !== 'object') {
+                throw "The render options must be supplied as an object.";
             }
-            if (typeof dataSettings === 'undefined') {
+            if (!options.hasOwnProperty("rendererName")) {
+                throw "The rendererName must be supplied as part of the render options.";
+            }
+            if (!options.hasOwnProperty("selector")) {
+                throw "The selector must be supplied as part of the render options.";
+            }
+            if (!options.hasOwnProperty("data")) {
+                throw "The data settings must be supplied as part of the render options.";
+            }
+
+            // Get the render options
+            rendererName = options["rendererName"];
+            selector = options["selector"];
+            data = options["data"];
+            if (options.hasOwnProperty("vizOptions")) {
+                vizOptions = options["vizOptions"]
+            }
+
+            // Setup the data helper
+            if (typeof data === 'undefined') {
                 throw "No data settings were supplied when getting renderer."
             }
+            dataHelper = new vizshare.dataHelper(data);
             
-            renderOpt = rendererLookup[vizType];
+            // Run renderer
+            if (!rendererLookup.hasOwnProperty(rendererName)) {
+                throw "No renderer has been registered with the name '" + rendererName + "'";
+            }
+            renderOpt = rendererLookup[rendererName];
             renderFunc = renderOpt.renderFunc;
             if (typeof renderFunc !== 'function') {
-                throw "The renderer with the name '" + vizType + "' is not a function.";
+                throw "The renderer with the name '" + rendererName + "' is not a function.";
             }
-            renderFunc(selector, dataHelper, vizSettings);
+            renderFunc(selector, dataHelper, vizOptions);
         },
 
-        registerRenderer = function (vizType, renderer) {
-            rendererLookup[vizType] = renderer;
-        },
-
-        createDataHelper = function (dataSettings) {
-            var dataHelper = {};
-            dataHelper.dataSettings = dataSettings;
-
+        registerRenderer = function (rendererName, rendererOptions) {
+            rendererLookup[rendererName] = rendererOptions;
         };
+
+        //createDataHelper = function (dataSettings) {
+        //    var dataHelper = {};
+        //    dataHelper.dataSettings = dataSettings;
+        //};
 
     // Public
     return {

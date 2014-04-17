@@ -24,12 +24,18 @@
             Click the buttons below to change which data settings are used in
             the renderer. The code to draw the bar chart is:
         </p>
-        <div class="code">
-            vizshare.render("vizshare.barchart", "#div-id", json-settings, {});
-        </div>
+        <pre class="code">
+    var renderOpt = {
+        rendererName: "vizshare.barchart",
+        selector: "#div-id",
+        data: jsonSettings,
+        vizOptions: {}
+    };
+    vizshare.render(renderOpt);
+        </pre>
         <p>
             Where "vizshare.barchart" is the name of the renderer, "#div-id" is the
-            css style selector for where you want the output and json-settings is
+            css style selector for where you want the output and jsonSettings is
             the JSON structure shown below which describes the data.
         </p>
         <p>
@@ -44,9 +50,15 @@
         <p>
             This example uses slightly different settings for the pie chart renderer.
             The code for drawing a pie chart is:
-            <div class="code">
-                vizshare.render("vizshare.piechart", "#div-id", json-settings, {});
-            </div>
+            <pre class="code">
+    var renderOpts = {
+        rendererName: "vizshare.piechart",
+        selector": "#div-id",
+        data: jsonSettings,
+        vizOptions": {}
+    }
+    vizshare.render(renderOpts);
+            </pre>
         </p>
         <p>
             <textarea id="settings-pie" class="settings-text" rows="17" cols="70"></textarea>
