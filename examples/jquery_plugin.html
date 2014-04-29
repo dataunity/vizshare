@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>VizShare - Examples</title>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+    </head>
+    <body>
+        <h1>JQuery Plugin</h1>
+        <p>
+            For convenience, VizShare also comes as a jQuery plugin.
+        </p>
+        <p>
+            To use the jQuery plugin just call vizshare() on the 
+            jQuery selector. See the source code for this page for 
+            a full example:
+        </p>
+        <pre class="code">
+    $('#output').vizshare({
+        rendererName: "vizshare.barchart",
+        data: jsonSettings,
+        vizOptions: {}
+    });
+        </pre>
+        <p>
+            Please see the previous examples or the wiki for how to construct 
+            the jsonSettings object.
+        </p>
+        <div id="output"></div>
+
+        <p>
+            <a href="index.html">Back to home</a>
+        </p>
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.7.1.js"></script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/vega.min.js"></script>
+        <script src="../vizshare-0.1.0.js"></script>
+        <script src="../lib/vizshare-renderers-0.1.0.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Set the data mapping
+                var jsonSettings = [
+                    {
+                        "name": "default",
+                        "url": "data/data1.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "xAxis",
+                                "dataField": "Country"
+                            },
+                            {
+                                "vizField": "yAxis",
+                                "dataField": "Number"
+                            }
+                        ]
+                    }
+                ];
+
+                // Render with jQuery plugin
+                $('#output').vizshare({
+                    rendererName: "vizshare.barchart",
+                    data: jsonSettings,
+                    vizOptions: {}
+                });
+            });
+        </script>
+    </body>
+</html>
