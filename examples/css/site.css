@@ -4,9 +4,9 @@ body {
 
 .code {
     font: 12px monospace;
-    background-color: #dddddd;
+    background-color: #e5e5e5;
     padding: 5px;
-    color: #222222;
+    color: #444444;
 }
 
 .settings-text {

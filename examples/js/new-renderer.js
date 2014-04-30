@@ -130,13 +130,12 @@ $(document).ready(function () {
 
     function displayBarChart (settings) {
         // Draw the visualisation based on the settings
-        var renderOpts = {
+        vizshare.render({
             rendererName: "myCompany.barchart",
             selector: "#output",
             data: settings,
             vizOptions: {}
-        };
-        vizshare.render(renderOpts);
+        });
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);
