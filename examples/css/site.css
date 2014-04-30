@@ -8,3 +8,7 @@ body {
     padding: 5px;
     color: #222222;
 }
+
+.settings-text {
+	font-size: 12px;
+}

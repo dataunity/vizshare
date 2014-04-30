@@ -25,18 +25,20 @@
             the renderer. The code to draw the bar chart is:
         </p>
         <pre class="code">
-    var renderOpt = {
+    vizshare.render({
         rendererName: "vizshare.barchart",
         selector: "#div-id",
         data: jsonSettings,
         vizOptions: {}
-    };
-    vizshare.render(renderOpt);
-        </pre>
+    });</pre>
         <p>
-            Where "vizshare.barchart" is the name of the renderer, "#div-id" is the
-            css style selector for where you want the output and jsonSettings is
-            the JSON structure shown below which describes the data.
+            Where:
+            <ul>
+                <li>"vizshare.barchart" is the name of the renderer</li>
+                <li>"#div-id" is the css style selector for where you want the output</li>
+                <li>jsonSettings is the JSON structure (shown below) which describes the data, and</li>
+                <li>vizOptions are optional settings which affect the look of the visualisation, like size and colours.</li>
+            </ul>
         </p>
         <p>
             <button id="btnSettings1">Bar chart settings 1</button>
@@ -51,19 +53,34 @@
             This example uses slightly different settings for the pie chart renderer.
             The code for drawing a pie chart is:
             <pre class="code">
-    var renderOpts = {
+    vizshare.render({
         rendererName: "vizshare.piechart",
-        selector": "#div-id",
+        selector: "#div-id",
         data: jsonSettings,
-        vizOptions": {}
-    }
-    vizshare.render(renderOpts);
-            </pre>
+        vizOptions: {}
+    });</pre>
         </p>
         <p>
             <textarea id="settings-pie" class="settings-text" rows="17" cols="70"></textarea>
         </p>
         <div id="output-pie"></div>
+
+        <h2>Changing size</h2>
+        <p>
+            In the default renderers you can change the size of the visualisation by
+            supplying height and width parameters for the vizOptions:
+            <pre class="code">
+    vizshare.render({
+        rendererName: "vizshare.piechart",
+        selector: "#div-id",
+        data: jsonSettings,
+        vizOptions: {
+            height: 200,
+            width: 200
+        }
+    });</pre>
+        </p>
+        <div id="output-pie-small"></div>
 
         <p>
             <a href="index.html">Back to home</a>

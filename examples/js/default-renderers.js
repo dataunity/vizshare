@@ -65,13 +65,12 @@ $(document).ready(function () {
 
     function displayBarChart (settings) {
         // Draw the visualisation based on the settings
-        var renderOpt = {
+        vizshare.render({
             rendererName: "vizshare.barchart",
             selector: "#output",
             data: settings,
             vizOptions: {}
-        };
-        vizshare.render(renderOpt);
+        });
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);
@@ -80,20 +79,33 @@ $(document).ready(function () {
 
     function displayPieChart (settings) {
         // Draw the visualisation based on the settings
-        var renderOpt = {
+        vizshare.render({
             rendererName: "vizshare.piechart",
             selector: "#output-pie",
             data: settings,
             vizOptions: {}
-        };
-        vizshare.render(renderOpt);
+        });
 
         // Show the settings to the user
         var settingsStr = JSON.stringify(settings, null, 4);
         $("#settings-pie").text(settingsStr);
     }
 
+    function displaySmallPieChart (settings) {
+        // Draw the visualisation based on the settings
+        vizshare.render({
+            rendererName: "vizshare.piechart",
+            selector: "#output-pie-small",
+            data: settings,
+            vizOptions: {
+                height: 200,
+                width: 200
+            }
+        });
+    }
+
     // Set initial views
     displayBarChart(barSettings1);
     displayPieChart(pieSettings);
+    displaySmallPieChart(pieSettings);
 });
