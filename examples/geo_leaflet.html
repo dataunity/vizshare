@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>VizShare - Examples</title>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+        <link rel="stylesheet" href="../lib/leaflet-0.7.3/leaflet.css" />
+    </head>
+    <body>
+        <h1>Geo Renderer (Leaflet)</h1>
+        <p>
+            Mapping data can be displayed with the geo renderer. This example
+            uses a renderer based on the Leaflet javascript project.
+        </p>
+        <p>
+            See the source code for this page for a full example:
+        </p>
+        <pre class="code">
+    $('#output').vizshare({
+        rendererName: "vizshare.geoleaflet",
+        data: jsonSettings,
+        vizOptions: {}
+    });</pre>
+        <p>
+            Please see the previous examples or the wiki for how to construct 
+            the jsonSettings object.
+        </p>
+        <div id="output" style="height:300px;width:500px"></div>
+
+        <p>
+            <a href="index.html">Back to home</a>
+        </p>
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.7.1.js"></script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="../lib/leaflet-0.7.3/leaflet.js"></script>
+        <script src="../vizshare-0.1.0.js"></script>
+        <script src="../lib/vizshare-renderer-geoleaflet-0.1.0.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Set the data mapping
+                var jsonSettings = [
+                    {
+                        "name": "default",
+                        "url": "data/geo_data.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            }
+                        ]
+                    }
+                ];
+
+                // Render with jQuery plugin
+                $('#output').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: {}
+                });
+            });
+        </script>
+    </body>
+</html>
