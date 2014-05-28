@@ -32,13 +32,18 @@
         <!-- Scripts -->
         <script src="js/jquery-1.7.1.js"></script>
         <script src="../lib/d3.min.js"></script>
+        <script src="http://d3js.org/queue.v1.min.js"></script>
+        <!--<script src="../lib/vega.min.js"></script>-->
         <script src="../lib/leaflet-0.7.3/leaflet.js"></script>
         <script src="../vizshare-0.1.0.js"></script>
         <script src="../lib/vizshare-renderer-geoleaflet-0.1.0.js"></script>
         <script>
             $(document).ready(function () {
                 // Set the data mapping
-                var jsonSettings = [
+                var jsonSettings = {}, 
+                    vizOptions = {};
+
+                jsonSettings = [
                     {
                         "name": "default",
                         "url": "data/geo_data.csv",
@@ -55,16 +60,50 @@
                             {
                                 "vizField": "title",
                                 "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
                             }
                         ]
                     }
                 ];
 
+                vizOptions = {
+                    "scales": [
+                        {
+                            "name": "area",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": [50000, 100000]
+                        },
+                        {
+                            "name": "onetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": [50000, 100000]
+                        }
+                    ],
+                    "marks": [
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    "value": {"scale": "onetoten", "vizField": "value"}
+                                }
+                            }
+                        }
+                    ]
+                }
+
                 // Render with jQuery plugin
                 $('#output').vizshare({
                     rendererName: "vizshare.geoleaflet",
                     data: jsonSettings,
-                    vizOptions: {}
+                    vizOptions: vizOptions
                 });
             });
         </script>
