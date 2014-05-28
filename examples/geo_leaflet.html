@@ -6,6 +6,7 @@
     </head>
     <body>
         <h1>Geo Renderer (Leaflet)</h1>
+        <h1 style="color: Red">Warning: Experimental</h1>
         <p>
             Mapping data can be displayed with the geo renderer. This example
             uses a renderer based on the Leaflet javascript project.
@@ -81,7 +82,19 @@
                             "name": "onetoten",
                             "type": "linear",
                             "domain": [1, 10],
-                            "range": [50000, 100000]
+                            "range": [50000, 1000000]
+                        },
+                        {
+                            "name": "colours",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["red", "blue"]
+                        },
+                        {
+                            "name": "coloursonetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": ["red", "blue"]
                         }
                     ],
                     "marks": [
@@ -92,7 +105,9 @@
                                 "enter": {
                                     "lat": {"vizField": "lat"},
                                     "long": {"vizField": "long"},
-                                    "value": {"scale": "onetoten", "vizField": "value"}
+                                    "size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours", "vizField": "value"}
                                 }
                             }
                         }
