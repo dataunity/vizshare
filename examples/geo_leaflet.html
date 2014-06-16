@@ -26,6 +26,24 @@
         </p>
         <div id="output" style="height:300px;width:500px"></div>
 
+        <h1>VizOptions</h1>
+        <p>
+            Unlike the default renderers, a map must have some default options to
+            specify how to draw the items in the dataset.
+        </p>
+        <h2>Marks</h2>
+        <p>
+            Marks determine the look that gets applied to a data point. Currently
+            there are two types of marks:
+            <ul>
+                <li>latlongmarker</li>
+                <li>latlongcircle</li>
+            </ul>
+            latlongmarker will draw a pointer (with constant size and colour) onto
+            the map. latlongcircle will draw a cirle with configurable properties,
+            like size and colour. 
+        </p>
+
         <p>
             <a href="index.html">Back to home</a>
         </p>
@@ -105,7 +123,7 @@
                                 "enter": {
                                     "lat": {"vizField": "lat"},
                                     "long": {"vizField": "long"},
-                                    "size": {"scale": "onetoten", "vizField": "value"},
+                                    //"size": {"scale": "onetoten", "vizField": "value"},
                                     "text": {"vizField": "title"},
                                     "fill": {"scale": "colours", "vizField": "value"}
                                 }
