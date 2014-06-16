@@ -31,6 +31,15 @@
             Unlike the default renderers, a map must have some default options to
             specify how to draw the items in the dataset.
         </p>
+        <p>
+            The same data is used in all of the examples on this page. The VizShare
+            settings for the data are (see the wiki or previous examples for more
+            information on how VizShare handles data):
+        </p>
+        <p>
+            <textarea id="data-settings" class="settings-text" rows="17" cols="70"></textarea>
+        </p>
+
         <h2>Marks</h2>
         <p>
             Marks determine the look that gets applied to a data point. Currently
@@ -42,6 +51,29 @@
             latlongmarker will draw a pointer (with constant size and colour) onto
             the map. latlongcircle will draw a cirle with configurable properties,
             like size and colour. 
+        </p>
+
+        <h2>latlongmarker</h2>
+        <p>
+            latlongmarker is the simplest mark. It just needs a lat field,
+            a long field and optionally a text field (for the popup). The settings
+            use the VizShare 'vizField' property to link to the data (see above for
+            the data settings). 
+        </p>
+        <p>
+            <textarea id="settings-marker" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-marker" style="height:300px;width:500px"></div>
+        </p>
+
+        <h2>latlongcircle</h2>
+        <p>
+            latlongcircle has more options than latlongmarker. You can alter the size and colour
+            of the circle. D3 style scales can be used to tailor the style ranges to suit the
+            data. 
+        </p>
+        <p>
+            <textarea id="settings-circle" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-circle" style="height:300px;width:500px"></div>
         </p>
 
         <p>
@@ -60,7 +92,8 @@
             $(document).ready(function () {
                 // Set the data mapping
                 var jsonSettings = {}, 
-                    vizOptions = {};
+                    vizOptionsCircle = {},
+                    vizOptionsMarker = {};
 
                 jsonSettings = [
                     {
@@ -88,7 +121,23 @@
                     }
                 ];
 
-                vizOptions = {
+                vizOptionsMarker = {
+                    "marks": [
+                        {
+                            "type": "latlongmarker",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    "text": {"vizField": "title"}
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                vizOptionsCircle = {
                     "scales": [
                         {
                             "name": "area",
@@ -123,20 +172,42 @@
                                 "enter": {
                                     "lat": {"vizField": "lat"},
                                     "long": {"vizField": "long"},
-                                    //"size": {"scale": "onetoten", "vizField": "value"},
+                                    "size": {"scale": "onetoten", "vizField": "value"},
                                     "text": {"vizField": "title"},
                                     "fill": {"scale": "colours", "vizField": "value"}
                                 }
                             }
                         }
                     ]
-                }
+                };
 
                 // Render with jQuery plugin
                 $('#output').vizshare({
                     rendererName: "vizshare.geoleaflet",
                     data: jsonSettings,
-                    vizOptions: vizOptions
+                    vizOptions: vizOptionsCircle
+                });
+
+                // Show demo settings
+                var settingsStr = JSON.stringify(jsonSettings, null, 4);
+                $("#data-settings").text(settingsStr);
+
+                // Marker
+                settingsStr = JSON.stringify(vizOptionsMarker, null, 4);
+                $("#settings-marker").text(settingsStr);
+                $('#output-marker').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: vizOptionsMarker
+                });
+
+                // Circle
+                settingsStr = JSON.stringify(vizOptionsCircle, null, 4);
+                $("#settings-circle").text(settingsStr);
+                $('#output-circle').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: vizOptionsCircle
                 });
             });
         </script>
