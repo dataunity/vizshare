@@ -1,0 +1,348 @@
+<html>
+    <head>
+        <title>VizShare - Examples</title>
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+        <link rel="stylesheet" href="../lib/leaflet-0.7.3/leaflet.css" />
+    </head>
+    <body>
+        <h1>Geo Renderer (Leaflet)</h1>
+        <h1 style="color: Red">Warning: Experimental</h1>
+        <p>
+            Mapping data can be displayed with the geo renderer. This example
+            uses a renderer based on the Leaflet javascript project.
+        </p>
+        <p>
+            See the source code for this page for a full example:
+        </p>
+        <pre class="code">
+    $('#output').vizshare({
+        rendererName: "vizshare.geoleaflet",
+        data: jsonSettings,
+        vizOptions: {}
+    });</pre>
+        <p>
+            Please see the previous examples or the wiki for how to construct 
+            the jsonSettings object.
+        </p>
+        <div id="output" style="height:300px;width:500px"></div>
+
+        <h1>VizOptions</h1>
+        <p>
+            Unlike the default renderers, a map must have some default options to
+            specify how to draw the items in the dataset.
+        </p>
+        <p>
+            The same data is used in all of the examples on this page. The VizShare
+            settings for the data are (see the wiki or previous examples for more
+            information on how VizShare handles data):
+        </p>
+        <p>
+            <textarea id="data-settings" class="settings-text" rows="17" cols="70"></textarea>
+        </p>
+
+        <h2>Marks</h2>
+        <p>
+            Marks determine the look that gets applied to a data point. Currently
+            there are two types of marks:
+            <ul>
+                <li>latlongmarker</li>
+                <li>latlongcircle</li>
+            </ul>
+            latlongmarker will draw a pointer (with constant size and colour) onto
+            the map. latlongcircle will draw a cirle with configurable properties,
+            like size and colour. 
+        </p>
+
+        <h2>latlongmarker</h2>
+        <p>
+            latlongmarker is the simplest mark. It just needs a lat field,
+            a long field and optionally a text field (for the popup). The settings
+            use the VizShare 'vizField' property to link to the data (see above for
+            the data settings). 
+        </p>
+        <p>
+            <textarea id="settings-marker" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-marker" style="height:300px;width:500px"></div>
+        </p>
+
+        <h2>latlongcircle</h2>
+        <p>
+            latlongcircle has more options than latlongmarker. You can alter the size and colour
+            of the circle. D3 style scales can be used to tailor the style ranges to suit the
+            data. 
+        </p>
+        <p>
+            <textarea id="settings-circle" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-circle" style="height:300px;width:500px"></div>
+        </p>
+
+        <h2>Multiple datasets</h2>
+        <p>
+            Multiple datasets can be overlaid by having adding multiple datasets to the json
+            settings and multiple marks to the viz options. Please see the source code for this
+            page for an example.
+        </p>
+        <p>
+            <textarea id="settings-multidata" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-multidata" style="height:300px;width:500px"></div>
+        </p>
+
+        <p>
+            <a href="index.html">Back to home</a>
+        </p>
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.7.1.js"></script>
+        <script src="../lib/d3.min.js"></script>
+        <script src="http://d3js.org/queue.v1.min.js"></script>
+        <!--<script src="../lib/vega.min.js"></script>-->
+        <script src="../lib/leaflet-0.7.3/leaflet.js"></script>
+        <script src="../vizshare-0.1.0.js"></script>
+        <script src="../lib/vizshare-renderer-geoleaflet-0.1.0.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Set the data mapping
+                var jsonSettings = {}, 
+                    vizOptionsCircle = {},
+                    vizOptionsMarker = {};
+
+                jsonSettings = [
+                    {
+                        "name": "default",
+                        "url": "data/geo_data.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
+                            }
+                        ]
+                    }
+                ];
+
+                vizOptionsMarker = {
+                    "marks": [
+                        {
+                            "type": "latlongmarker",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    "text": {"vizField": "title"}
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                vizOptionsCircle = {
+                    "scales": [
+                        {
+                            "name": "area",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": [50000, 100000]
+                        },
+                        {
+                            "name": "onetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": [50000, 1000000]
+                        },
+                        {
+                            "name": "colours",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["red", "blue"]
+                        },
+                        {
+                            "name": "coloursonetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": ["red", "blue"]
+                        }
+                    ],
+                    "marks": [
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    "size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours", "vizField": "value"}
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // Render with jQuery plugin
+                $('#output').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: vizOptionsCircle
+                });
+
+                // Show demo settings
+                var settingsStr = JSON.stringify(jsonSettings, null, 4);
+                $("#data-settings").text(settingsStr);
+
+                // Marker
+                settingsStr = JSON.stringify(vizOptionsMarker, null, 4);
+                $("#settings-marker").text(settingsStr);
+                $('#output-marker').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: vizOptionsMarker
+                });
+
+                // Circle
+                settingsStr = JSON.stringify(vizOptionsCircle, null, 4);
+                $("#settings-circle").text(settingsStr);
+                $('#output-circle').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettings,
+                    vizOptions: vizOptionsCircle
+                });
+
+                // Multidata
+                jsonSettingsMultiData = [
+                    {
+                        "name": "default",
+                        "url": "data/geo_data.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "second",
+                        "url": "data/geo_data2.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
+                            }
+                        ]
+                    }
+                ];
+
+                var vizOptionsMultiData = {
+                    "scales": [
+                        {
+                            "name": "area",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": [50000, 100000]
+                        },
+                        {
+                            "name": "onetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": [50000, 1000000]
+                        },
+                        {
+                            "name": "colours",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["red", "red"]
+                        },
+                        {
+                            "name": "colours2",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["blue", "blue"]
+                        },
+                        {
+                            "name": "coloursonetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": ["red", "blue"]
+                        }
+                    ],
+                    "marks": [
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    //"size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours", "vizField": "value"}
+                                }
+                            }
+                        },
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "second"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    //"size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours2", "vizField": "value"}
+                                }
+                            }
+                        }
+                    ]
+                };
+
+
+                settingsStr = JSON.stringify(vizOptionsMultiData, null, 4);
+                $("#settings-multidata").text(settingsStr);
+                $('#output-multidata').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettingsMultiData,
+                    vizOptions: vizOptionsMultiData
+                });
+            });
+        </script>
+    </body>
+</html>
