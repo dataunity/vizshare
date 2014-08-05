@@ -76,6 +76,17 @@
             <div id="output-circle" style="height:300px;width:500px"></div>
         </p>
 
+        <h2>Multiple datasets</h2>
+        <p>
+            Multiple datasets can be overlaid by having adding multiple datasets to the json
+            settings and multiple marks to the viz options. Please see the source code for this
+            page for an example.
+        </p>
+        <p>
+            <textarea id="settings-multidata" class="settings-text" rows="17" cols="70"></textarea>
+            <div id="output-multidata" style="height:300px;width:500px"></div>
+        </p>
+
         <p>
             <a href="index.html">Back to home</a>
         </p>
@@ -208,6 +219,128 @@
                     rendererName: "vizshare.geoleaflet",
                     data: jsonSettings,
                     vizOptions: vizOptionsCircle
+                });
+
+                // Multidata
+                jsonSettingsMultiData = [
+                    {
+                        "name": "default",
+                        "url": "data/geo_data.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "second",
+                        "url": "data/geo_data2.csv",
+                        "contentType": "text/csv",
+                        "fields": [
+                            {
+                                "vizField": "lat",
+                                "dataField": "Lat"
+                            },
+                            {
+                                "vizField": "long",
+                                "dataField": "Long"
+                            },
+                            {
+                                "vizField": "title",
+                                "dataField": "Name"
+                            },
+                            {
+                                "vizField": "value",
+                                "dataField": "Value"
+                            }
+                        ]
+                    }
+                ];
+
+                var vizOptionsMultiData = {
+                    "scales": [
+                        {
+                            "name": "area",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": [50000, 100000]
+                        },
+                        {
+                            "name": "onetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": [50000, 1000000]
+                        },
+                        {
+                            "name": "colours",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["red", "red"]
+                        },
+                        {
+                            "name": "colours2",
+                            "type": "linear",
+                            "domain": {"data": "default", "vizField": "value"},
+                            "range": ["blue", "blue"]
+                        },
+                        {
+                            "name": "coloursonetoten",
+                            "type": "linear",
+                            "domain": [1, 10],
+                            "range": ["red", "blue"]
+                        }
+                    ],
+                    "marks": [
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "default"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    //"size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours", "vizField": "value"}
+                                }
+                            }
+                        },
+                        {
+                            "type": "latlongcircle",
+                            "from": {"data": "second"},
+                            "properties": {
+                                "enter": {
+                                    "lat": {"vizField": "lat"},
+                                    "long": {"vizField": "long"},
+                                    //"size": {"scale": "onetoten", "vizField": "value"},
+                                    "text": {"vizField": "title"},
+                                    "fill": {"scale": "colours2", "vizField": "value"}
+                                }
+                            }
+                        }
+                    ]
+                };
+
+
+                settingsStr = JSON.stringify(vizOptionsMultiData, null, 4);
+                $("#settings-multidata").text(settingsStr);
+                $('#output-multidata').vizshare({
+                    rendererName: "vizshare.geoleaflet",
+                    data: jsonSettingsMultiData,
+                    vizOptions: vizOptionsMultiData
                 });
             });
         </script>
